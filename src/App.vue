@@ -1,34 +1,35 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from "vue"
+import { ref, computed, onMounted, onUnmounted } from "vue"
 
 const container = ref(null)
 const canvas = ref(null)
 
-const windowWidth = ref(window.innerWidth)
-const windowHeight = ref(window.innerHeight)
+const MOBILE_THRESHOLD = 768
+const MOVE_THRESHOLD = 5
+const MOVE_THRESHOLD_MOBILE = 10
+const MAX_EXTRA = { x: 0.25, y: 0.15 }
+const MAX_EXTRA_MOBILE = { x: 0.5, y: 0.1 }
 
-const isMobile = computed(() => windowWidth.value < 768)
+const windowWidth = ref(window.innerWidth)
+const isMobile = computed(() => windowWidth.value < MOBILE_THRESHOLD)
 
 let isPanning = false
 let movedEnough = ref(false)
-const MOBILE_THRESHOLD = 768
-const MOVE_THRESHOLD_DESKTOP = 5
-const MOVE_THRESHOLD_MOBILE = 10
-const getMoveThreshold = () =>
-  window.innerWidth < MOBILE_THRESHOLD ? MOVE_THRESHOLD_MOBILE : MOVE_THRESHOLD_DESKTOP
 
-let panStart = { x: 0, y: 0 } // Starting point of the panning event
+let panStart = { x: 0, y: 0 }
 
 // The actual reactive offset the canvas is translated to
-const offset = ref({ x: 0, y: 0 }) // The initial offset
 let initialOffset = { x: 0, y: 0 }
+const offset = ref({ x: 0, y: 0 })
 
 // Boundaries
+let boundaries = { minX: 0, maxX: 0, minY: 0, maxY: 0 }
+
 const maxExtraX = computed(() => {
-  return isMobile.value ? 0.5 : 0.25
+  return isMobile.value ? MAX_EXTRA_MOBILE.x : MAX_EXTRA.x
 })
 const maxExtraY = computed(() => {
-  return isMobile.value ? 0.1 : 0.15
+  return isMobile.value ? MAX_EXTRA_MOBILE.y : MAX_EXTRA.y
 })
 
 const panableWidth = computed(() => {
@@ -41,31 +42,35 @@ const panableHeight = computed(() => {
   return container.value.clientHeight * (1 + maxExtraY.value)
 })
 
-// The inital boundaries (they get updated immediately)
-let boundaries = { minX: 0, maxX: 0, minY: 0, maxY: 0 }
-// minX => added to top left
-// maxX => added to top right
-// minY => addet to bottom left
-// maxY => added to bottom right
+const moveThreshold = computed(() => {
+  return isMobile.value ? MOVE_THRESHOLD : MOVE_THRESHOLD_MOBILE
+})
 
 function updateBoundaries() {
-  // The boundaries are added to the available viewport
-  // They determine up to where you can pan
   if (!container.value || !canvas.value) return
 
   const cW = container.value.clientWidth
   const cH = container.value.clientHeight
-  const sW = canvas.value.scrollWidth
-  const sH = canvas.value.scrollHeight
 
-  boundaries = {
-    minX: -sW + cW - cW * maxExtraX.value,
-    maxX: cW * maxExtraX.value,
-    minY: -sH + cH - cH * maxExtraY.value,
-    maxY: cH * maxExtraY.value,
+  const canvasW = panableWidth.value
+  const canvasH = panableHeight.value
+
+  // Center offset: place the canvas so that extra space is evenly around content
+  const centerOffset = {
+    x: (cW - canvasW) / 2,
+    y: (cH - canvasH) / 2,
   }
 
-  // offset.value = { x: 50, y: 50 }
+  offset.value = { ...centerOffset }
+  initialOffset = { ...centerOffset }
+
+  // Boundaries relative to this center
+  boundaries = {
+    minX: centerOffset.x - canvasW * maxExtraX.value,
+    maxX: centerOffset.x + canvasW * maxExtraX.value,
+    minY: centerOffset.y - canvasH * maxExtraY.value,
+    maxY: centerOffset.y + canvasH * maxExtraY.value,
+  }
 }
 
 function startPan(event) {
@@ -95,13 +100,12 @@ function pan(event) {
 
   // Compute total distance from start for click prevention
   const distance = Math.sqrt(dx * dx + dy * dy)
-  const moveThreshold = getMoveThreshold()
 
-  if (distance > moveThreshold) {
+  if (distance > moveThreshold.value) {
     movedEnough.value = true
   }
 
-  // compute new offset within boundaries
+  // Compute new offset within boundaries
   offset.value = {
     x: Math.min(Math.max(initialOffset.x + dx, boundaries.minX), boundaries.maxX),
     y: Math.min(Math.max(initialOffset.y + dy, boundaries.minY), boundaries.maxY),
@@ -112,7 +116,7 @@ function endPan(event) {
   if (isPanning) {
     isPanning = false
     if (movedEnough.value) {
-      // prevent click propagation after panning
+      // Prevent click propagation after panning
       event.preventDefault()
       event.stopImmediatePropagation()
     }
@@ -133,38 +137,6 @@ function getEventPoint(event) {
   }
 }
 
-function handleResize() {
-  windowWidth.value = window.innerWidth
-  windowHeight.value = window.innerHeight
-}
-
-onMounted(() => {
-  updateBoundaries() // compute canvas size first
-
-  const centerOffset = {
-    x: (container.value.clientWidth - panableWidth.value) / 2,
-    y: (container.value.clientHeight - panableHeight.value) / 2,
-  }
-
-  offset.value = { ...centerOffset } // start centered
-
-  // compute boundaries relative to this center
-  boundaries = {
-    minX: centerOffset.x - panableWidth.value * maxExtraX.value,
-    maxX: centerOffset.x + panableWidth.value * maxExtraX.value,
-    minY: centerOffset.y - panableHeight.value * maxExtraY.value,
-    maxY: centerOffset.y + panableHeight.value * maxExtraY.value,
-  }
-
-  window.addEventListener("resize", handleResize)
-  window.addEventListener("resize", updateBoundaries)
-})
-
-onUnmounted(() => {
-  window.removeEventListener("resize", handleResize)
-  window.removeEventListener("resize", updateBoundaries)
-})
-
 function test() {
   if (!movedEnough.value) {
     console.log("click")
@@ -172,6 +144,25 @@ function test() {
   // reset movedEnough for next interaction
   movedEnough.value = false
 }
+
+let resizeTimeout
+
+function handleResize() {
+  windowWidth.value = window.innerWidth
+  clearTimeout(resizeTimeout)
+  resizeTimeout = setTimeout(() => {
+    updateBoundaries()
+  }, 500)
+}
+
+onMounted(() => {
+  updateBoundaries()
+  window.addEventListener("resize", handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize)
+})
 </script>
 
 <template>
@@ -213,6 +204,8 @@ body {
   padding: 0;
   overflow: hidden;
 }
+</style>
+<style scoped>
 .logo {
   position: absolute;
   top: 1rem;
@@ -233,6 +226,10 @@ body {
   cursor: grab;
   position: relative;
   touch-action: none; /* prevent native scrolling / pinch zoom */
+  -webkit-user-select: none; /* Safari/Chrome */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  user-select: none; /* Standard */
 }
 .canvas-container:active {
   cursor: grabbing;
