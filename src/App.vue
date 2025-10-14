@@ -1,17 +1,18 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from "vue"
+// import { NFlex } from "naive-ui"
+import { useAppStore } from "@/stores/app.js"
+import TheColumns from "@/components/TheColumns.vue"
+
+const appStore = useAppStore()
 
 const container = ref(null)
 const canvas = ref(null)
 
-const MOBILE_THRESHOLD = 768
 const MOVE_THRESHOLD = 5
 const MOVE_THRESHOLD_MOBILE = 10
 const MAX_EXTRA = { x: 0.25, y: 0.15 }
 const MAX_EXTRA_MOBILE = { x: 0.5, y: 0.1 }
-
-const windowWidth = ref(window.innerWidth)
-const isMobile = computed(() => windowWidth.value < MOBILE_THRESHOLD)
 
 let isPanning = false
 let movedEnough = ref(false)
@@ -26,10 +27,10 @@ const offset = ref({ x: 0, y: 0 })
 let boundaries = { minX: 0, maxX: 0, minY: 0, maxY: 0 }
 
 const maxExtraX = computed(() => {
-  return isMobile.value ? MAX_EXTRA_MOBILE.x : MAX_EXTRA.x
+  return appStore.isMobile ? MAX_EXTRA_MOBILE.x : MAX_EXTRA.x
 })
 const maxExtraY = computed(() => {
-  return isMobile.value ? MAX_EXTRA_MOBILE.y : MAX_EXTRA.y
+  return appStore.isMobile ? MAX_EXTRA_MOBILE.y : MAX_EXTRA.y
 })
 
 const panableWidth = computed(() => {
@@ -43,7 +44,7 @@ const panableHeight = computed(() => {
 })
 
 const moveThreshold = computed(() => {
-  return isMobile.value ? MOVE_THRESHOLD : MOVE_THRESHOLD_MOBILE
+  return appStore.isMobile ? MOVE_THRESHOLD : MOVE_THRESHOLD_MOBILE
 })
 
 function updateBoundaries() {
@@ -137,26 +138,29 @@ function getEventPoint(event) {
   }
 }
 
-function test() {
-  if (!movedEnough.value) {
-    console.log("click")
-  }
-  // reset movedEnough for next interaction
-  movedEnough.value = false
-}
+// function test() {
+//   if (!movedEnough.value) {
+//     console.log("click")
+//   }
+//   // Reset movedEnough for next interaction
+//   movedEnough.value = false
+// }
 
+// Handling window resizing events
 let resizeTimeout
-
 function handleResize() {
-  windowWidth.value = window.innerWidth
+  appStore.windowWidth = window.innerWidth
   clearTimeout(resizeTimeout)
   resizeTimeout = setTimeout(() => {
+    // Re-center the cards if windows is resized
     updateBoundaries()
   }, 500)
 }
 
-onMounted(() => {
-  updateBoundaries()
+// Licecycle
+onMounted(async () => {
+  await appStore.fetchCanvasData() // Fetch cancas data
+  updateBoundaries() // Set cancas dimensions
   window.addEventListener("resize", handleResize)
 })
 
@@ -190,8 +194,11 @@ onUnmounted(() => {
       @mouseleave="endPan"
       @touchend="endPan"
     >
-      <div class="column" v-for="n in 5" :key="n">
+      <!-- <div class="column" v-for="n in 5" :key="n">
         <div @click="test" class="card" v-for="i in 5" :key="i">Card {{ n }}-{{ i }}</div>
+      </div> -->
+      <div v-if="appStore.canvas">
+        <TheColumns :columns="appStore.canvas" />
       </div>
     </div>
   </div>
@@ -205,6 +212,7 @@ body {
   overflow: hidden;
 }
 </style>
+
 <style scoped>
 .logo {
   position: absolute;
@@ -212,7 +220,6 @@ body {
   left: 1rem;
   z-index: 1000;
 }
-
 .title {
   position: absolute;
   top: 1rem;
@@ -222,7 +229,7 @@ body {
 .canvas-container {
   width: 100vw;
   height: 100vh;
-  background: #f0f0f0;
+  background: #f7f3e9;
   cursor: grab;
   position: relative;
   touch-action: none; /* prevent native scrolling / pinch zoom */
@@ -236,25 +243,9 @@ body {
 }
 .canvas {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 20px;
   justify-content: center;
   align-items: center;
-}
-.column {
-  background: #fff;
-  padding: 20px;
-  min-width: 200px;
-  max-height: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.card {
-  background: #eee;
-  padding: 10px;
-  border-radius: 4px;
 }
 </style>
