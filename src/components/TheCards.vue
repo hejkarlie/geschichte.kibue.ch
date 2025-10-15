@@ -2,6 +2,9 @@
 import { defineAsyncComponent } from "vue"
 import { NFlex } from "naive-ui"
 import { cards as cardDimensions } from "@/utils/dimensions.js"
+import { useAppStore } from "@/stores/app.js"
+
+const appStore = useAppStore()
 
 const cardComponents = {
   article: defineAsyncComponent(() => import("@/components/cards/TheArticle.vue")),
@@ -14,6 +17,14 @@ const cardComponents = {
 
 const props = defineProps(["cards"])
 const getAspectRatio = (orientation) => (orientation === "portrait" ? [3, 4] : [4, 3])
+
+function test() {
+  if (!appStore.movedEnough) {
+    console.log("click")
+  }
+  // Reset movedEnough for next interaction
+  appStore.movedEnough = false
+}
 </script>
 
 <template>
@@ -26,6 +37,7 @@ const getAspectRatio = (orientation) => (orientation === "portrait" ? [3, 4] : [
       :width="cardDimensions[card.type][card.orientation][card.width]"
       :aspect-ratio="getAspectRatio(card.orientation)"
       :path="`/cards/${card.id}`"
+      @click="test"
     />
   </n-flex>
 </template>

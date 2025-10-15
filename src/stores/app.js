@@ -26,5 +26,8 @@ export const useAppStore = defineStore("app", () => {
     }
   }
 
-  return { fetchCanvasData, canvas, windowWidth, isMobile }
+  // Handle clicks on card while panning
+  const movedEnough = ref(false)
+
+  return { fetchCanvasData, canvas, windowWidth, isMobile, movedEnough }
 })

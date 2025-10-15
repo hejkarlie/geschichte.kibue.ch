@@ -1,8 +1,8 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from "vue"
-// import { NFlex } from "naive-ui"
 import { useAppStore } from "@/stores/app.js"
 import TheColumns from "@/components/TheColumns.vue"
+import logo from "@/assets/kibue-logo.svg"
 
 const appStore = useAppStore()
 
@@ -11,11 +11,8 @@ const canvas = ref(null)
 
 const MOVE_THRESHOLD = 5
 const MOVE_THRESHOLD_MOBILE = 10
-const MAX_EXTRA = { x: 0.25, y: 0.25 }
-const MAX_EXTRA_MOBILE = { x: 2, y: 0.2 }
 
 let isPanning = false
-let movedEnough = ref(false)
 
 let panStart = { x: 0, y: 0 }
 
@@ -25,6 +22,9 @@ const offset = ref({ x: 0, y: 0 })
 
 // Boundaries
 let boundaries = { minX: 0, maxX: 0, minY: 0, maxY: 0 }
+
+const MAX_EXTRA = { x: 0.3, y: 0.4 }
+const MAX_EXTRA_MOBILE = { x: 4, y: 0.5 }
 
 const maxExtraX = computed(() => {
   return appStore.isMobile ? MAX_EXTRA_MOBILE.x : MAX_EXTRA.x
@@ -77,7 +77,7 @@ function updateBoundaries() {
 function startPan(event) {
   // Event @mousedown
   isPanning = true
-  movedEnough.value = false
+  appStore.movedEnough = false
 
   const point = getEventPoint(event)
 
@@ -103,7 +103,7 @@ function pan(event) {
   const distance = Math.sqrt(dx * dx + dy * dy)
 
   if (distance > moveThreshold.value) {
-    movedEnough.value = true
+    appStore.movedEnough = true
   }
 
   // Compute new offset within boundaries
@@ -116,7 +116,7 @@ function pan(event) {
 function endPan(event) {
   if (isPanning) {
     isPanning = false
-    if (movedEnough.value) {
+    if (appStore.movedEnough) {
       // Prevent click propagation after panning
       event.preventDefault()
       event.stopImmediatePropagation()
@@ -137,14 +137,6 @@ function getEventPoint(event) {
     }
   }
 }
-
-// function test() {
-//   if (!movedEnough.value) {
-//     console.log("click")
-//   }
-//   // Reset movedEnough for next interaction
-//   movedEnough.value = false
-// }
 
 // Handling window resizing events
 let resizeTimeout
@@ -173,7 +165,7 @@ onUnmounted(() => {
   <div ref="container" class="canvas-container">
     <!-- Fixed elements -->
     <a href="https://kibue.ch" target="_blank" rel="noopener noreferrer">
-      <img src="" alt="Logo" class="logo" />
+      <img :src="logo" alt="Das Logo des Kinderbüros" class="logo" />
     </a>
     <span class="title">Unsere Geschichte</span>
 
@@ -194,9 +186,6 @@ onUnmounted(() => {
       @mouseleave="endPan"
       @touchend="endPan"
     >
-      <!-- <div class="column" v-for="n in 5" :key="n">
-        <div @click="test" class="card" v-for="i in 5" :key="i">Card {{ n }}-{{ i }}</div>
-      </div> -->
       <div v-if="appStore.canvas">
         <TheColumns :columns="appStore.canvas" />
       </div>
@@ -204,27 +193,20 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style>
-html,
-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-</style>
-
 <style scoped>
 .logo {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 1000;
+  top: 9px;
+  left: 9px;
+  z-index: 99;
+  width: 103px;
 }
 .title {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1000;
+  top: 25.5px;
+  right: 31px;
+  font-size: 28px;
+  z-index: 99;
 }
 .canvas-container {
   width: 100vw;
