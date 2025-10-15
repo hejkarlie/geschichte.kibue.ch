@@ -20,7 +20,6 @@ export const useAppStore = defineStore("app", () => {
       const data = await response.json()
       console.log("Cyrill Martin - Karlie GmbH")
       canvas.value = data.columns
-      console.log(canvas.value)
     } catch (error) {
       console.error("Failed to load canvas data:", error)
       canvas.value = null

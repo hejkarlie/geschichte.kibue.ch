@@ -2,13 +2,13 @@
   "columns": [
     {
       "columnId": 1,
-      "size": "large",
+      "width": "large",
       "cards": [
         {
           "id": "001",
           "type": "milestone",
           "orientation": "portrait",
-          "size": "medium",
+          "width": "medium",
           "color": "#4D8D83",
           "content": {
             "year": "2001",
@@ -19,7 +19,7 @@
           "id": "002",
           "type": "article",
           "orientation": "portrait",
-          "size": "medium",
+          "width": "medium",
           "color": "#F79633",
           "content": {
             "image": "{file}",
@@ -30,14 +30,13 @@
     },
     {
       "columnId": 2,
-      "size": "large",
+      "width": "large",
       "cards": [
         {
           "id": "003",
           "type": "image",
           "orientation": "portrait",
-          "size": "extraLarge",
-          "color": null,
+          "width": "full",
           "content": {
             "image": "{file}"
           }
@@ -46,7 +45,7 @@
           "id": "004",
           "type": "article",
           "orientation": "portrait",
-          "size": "medium",
+          "width": "medium",
           "color": "#F4B2CE",
           "content": {
             "image": "{file}",
@@ -57,7 +56,7 @@
           "id": "005",
           "type": "quote",
           "orientation": "portrait",
-          "size": "medium",
+          "width": "medium",
           "color": "#8D882C",
           "content": {
             "quote": "«Hier steht ein Zitate lorem ipsum dolor sit amet est dolor.»",
@@ -68,13 +67,13 @@
     },
     {
       "columnId": 3,
-      "size": "large",
+      "width": "large",
       "cards": [
         {
           "id": "006",
           "type": "milestone",
           "orientation": "landscape",
-          "size": "large",
+          "width": "full",
           "color": "#F79633",
           "content": {
             "year": "2000",
@@ -85,8 +84,7 @@
           "id": "007",
           "type": "image",
           "orientation": "portrait",
-          "size": "medium",
-          "color": null,
+          "width": "medium",
           "content": {
             "image": "{file}"
           }
@@ -95,7 +93,7 @@
           "id": "008",
           "type": "milestone",
           "orientation": "landscape",
-          "size": "large",
+          "width": "full",
           "color": "#D9BDF4",
           "content": {
             "year": "2007",
@@ -106,8 +104,7 @@
           "id": "009",
           "type": "image",
           "orientation": "landscape",
-          "size": "small",
-          "color": null,
+          "width": "medium",
           "content": {
             "image": "{file}"
           }
@@ -116,14 +113,13 @@
     },
     {
       "columnId": 4,
-      "size": "small",
+      "width": "small",
       "cards": [
         {
           "id": "010",
           "type": "image",
           "orientation": "portrait",
-          "size": "small",
-          "color": null,
+          "width": "full",
           "content": {
             "image": "{file}"
           }
@@ -132,8 +128,7 @@
           "id": "011",
           "type": "video",
           "orientation": "landscape",
-          "size": "small",
-          "color": null,
+          "width": "full",
           "content": {
             "image": "{file}"
           }
@@ -142,8 +137,7 @@
           "id": "012",
           "type": "image",
           "orientation": "portrait",
-          "size": "extraSmall",
-          "color": null,
+          "width": "medium",
           "content": {
             "image": "{file}"
           }
@@ -152,7 +146,7 @@
           "id": "013",
           "type": "interview",
           "orientation": "portrait",
-          "size": "medium",
+          "width": "medium",
           "color": "#E5C600",
           "content": {
             "title": " «Wir hören den Kindern zu wenig zu»",
@@ -164,14 +158,13 @@
     },
     {
       "columnId": 5,
-      "size": "large",
+      "width": "large",
       "cards": [
         {
           "id": "014",
           "type": "image",
           "orientation": "landscape",
-          "size": "large",
-          "color": null,
+          "width": "full",
           "content": {
             "image": "{file}"
           }
@@ -180,7 +173,7 @@
           "id": "015",
           "type": "milestone",
           "orientation": "portrait",
-          "size": "medium",
+          "width": "medium",
           "color": "#4D8D83",
           "content": {
             "year": "2018",
@@ -191,8 +184,7 @@
           "id": "016",
           "type": "image",
           "orientation": "portrait",
-          "size": "extraLarge",
-          "color": null,
+          "width": "full",
           "content": {
             "image": "{file}"
           }

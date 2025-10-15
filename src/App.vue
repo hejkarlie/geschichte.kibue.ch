@@ -11,8 +11,8 @@ const canvas = ref(null)
 
 const MOVE_THRESHOLD = 5
 const MOVE_THRESHOLD_MOBILE = 10
-const MAX_EXTRA = { x: 0.25, y: 0.15 }
-const MAX_EXTRA_MOBILE = { x: 0.5, y: 0.1 }
+const MAX_EXTRA = { x: 0.25, y: 0.25 }
+const MAX_EXTRA_MOBILE = { x: 2, y: 0.2 }
 
 let isPanning = false
 let movedEnough = ref(false)

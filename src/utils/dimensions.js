@@ -6,43 +6,54 @@ export const columns = {
 export const cards = {
   image: {
     portrait: {
-      extraLarge: 11,
-      medium: 10,
-      small: 9,
-      extraSmall: 8,
+      full: "100%",
+      medium: "65%",
+      small: "50",
     },
     landscape: {
-      large: 20,
-      small: 15,
+      full: "100%",
+      medium: "70%",
+      small: "50",
     },
   },
   video: {
     landscape: {
-      large: 20,
-      small: 15,
+      full: "100%",
+      medium: "80%",
+      small: "50",
     },
   },
   milestone: {
     portrait: {
-      medium: 10,
+      full: "100%",
+      medium: "80%",
+      small: "50",
     },
     landscape: {
-      medium: 20,
+      full: "100%",
+      medium: "80%",
+      small: "50",
     },
   },
   article: {
     portrait: {
-      medium: 10,
+      full: "100%",
+      medium: "80%",
+      small: "50",
     },
   },
   interview: {
     portrait: {
-      medium: 10,
+      full: "100%",
+      medium: "80%",
+      small: "50",
     },
   },
   quote: {
     portrait: {
-      medium: 10,
+      full: "100%",
+      medium: "80%",
+      small: "50",
     },
   },
 }

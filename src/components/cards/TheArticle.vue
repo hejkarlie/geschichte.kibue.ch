@@ -1,7 +1,10 @@
 <script setup>
-const props = defineProps(["data"])
+import { NCard } from "naive-ui"
+const props = defineProps(["card", "width", "aspectRatio", "path"])
 </script>
 
 <template>
-  <div>{{ props.data }}</div>
+  <n-card :style="{ backgroundColor: props.card.color }">
+    {{ props.card }}
+  </n-card>
 </template>
