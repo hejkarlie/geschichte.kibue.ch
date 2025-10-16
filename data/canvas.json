@@ -1,0 +1,195 @@
+{
+  "columns": [
+    {
+      "columnId": 1,
+      "width": "large",
+      "cards": [
+        {
+          "id": "001",
+          "type": "milestone",
+          "orientation": "portrait",
+          "width": "full",
+          "color": "#4D8D83",
+          "content": {
+            "year": "YYYY",
+            "title": "Unknown"
+          }
+        },
+        {
+          "id": "002",
+          "type": "article",
+          "orientation": "portrait",
+          "width": "medium",
+          "color": "#F79633",
+          "content": {
+            "image": "thumbnail.jpg",
+            "subtitle": "Unknown..."
+          }
+        }
+      ]
+    },
+    {
+      "columnId": 2,
+      "width": "large",
+      "cards": [
+        {
+          "id": "003",
+          "type": "image",
+          "orientation": "portrait",
+          "width": "full",
+          "content": {
+            "image": "thumbnail.jpg"
+          }
+        },
+        {
+          "id": "004",
+          "type": "article",
+          "orientation": "portrait",
+          "width": "medium",
+          "color": "#F4B2CE",
+          "content": {
+            "image": "thumbnail.jpg",
+            "subtitle": "Mein Tag mit Beat Jans im Rathaus"
+          }
+        },
+        {
+          "id": "005",
+          "type": "quote",
+          "orientation": "portrait",
+          "width": "medium",
+          "color": "#8D882C",
+          "content": {
+            "quote": "«Hier steht ein Zitate lorem ipsum dolor sit amet est dolor.»",
+            "subtitle": "Christoph Eymann, ehem. Regierungsrat"
+          }
+        }
+      ]
+    },
+    {
+      "columnId": 3,
+      "width": "large",
+      "cards": [
+        {
+          "id": "006",
+          "type": "milestone",
+          "orientation": "landscape",
+          "width": "full",
+          "color": "#F79633",
+          "content": {
+            "year": "2000",
+            "title": "Es geht los"
+          }
+        },
+        {
+          "id": "007",
+          "type": "image",
+          "orientation": "portrait",
+          "width": "medium",
+          "content": {
+            "image": "thumbnail.jpg"
+          }
+        },
+        {
+          "id": "008",
+          "type": "milestone",
+          "orientation": "landscape",
+          "width": "full",
+          "color": "#D9BDF4",
+          "content": {
+            "year": "2007",
+            "title": "Erste KinderMitWirkung"
+          }
+        },
+        {
+          "id": "009",
+          "type": "image",
+          "orientation": "landscape",
+          "width": "medium",
+          "content": {
+            "image": "thumbnail.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "columnId": 4,
+      "width": "small",
+      "cards": [
+        {
+          "id": "010",
+          "type": "image",
+          "orientation": "portrait",
+          "width": "full",
+          "content": {
+            "image": "thumbnail.jpg"
+          }
+        },
+        {
+          "id": "011",
+          "type": "video",
+          "orientation": "landscape",
+          "width": "full",
+          "content": {
+            "image": "thumbnail.png"
+          }
+        },
+        {
+          "id": "012",
+          "type": "image",
+          "orientation": "portrait",
+          "width": "medium",
+          "content": {
+            "image": "thumbnail.jpg"
+          }
+        },
+        {
+          "id": "013",
+          "type": "interview",
+          "orientation": "portrait",
+          "width": "medium",
+          "color": "#E5C600",
+          "content": {
+            "title": "«Wir hören den Kindern zu wenig zu»",
+            "image": "thumbnail.jpg",
+            "subtitle": "Porträt Jo Vergeat"
+          }
+        }
+      ]
+    },
+    {
+      "columnId": 5,
+      "width": "large",
+      "cards": [
+        {
+          "id": "014",
+          "type": "image",
+          "orientation": "landscape",
+          "width": "full",
+          "content": {
+            "image": "thumbnail.jpg"
+          }
+        },
+        {
+          "id": "015",
+          "type": "milestone",
+          "orientation": "portrait",
+          "width": "medium",
+          "color": "#4D8D83",
+          "content": {
+            "year": "2018",
+            "title": "Stiftungsgründung"
+          }
+        },
+        {
+          "id": "016",
+          "type": "image",
+          "orientation": "portrait",
+          "width": "full",
+          "content": {
+            "image": "thumbnail.jpg"
+          }
+        }
+      ]
+    }
+  ]
+}
