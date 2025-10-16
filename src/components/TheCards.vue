@@ -17,9 +17,9 @@ const cardComponents = {
 
 const props = defineProps(["cards"])
 
-function test() {
+function handleCardClick() {
   if (!appStore.movedEnough) {
-    console.log("click")
+    appStore.showCardDrawer = true
   }
   // Reset movedEnough for next interaction
   appStore.movedEnough = false
@@ -36,7 +36,7 @@ function test() {
       :width="cardWidth[card.type][card.orientation][card.width]"
       :aspect-ratio="aspectRatio[card.type][card.orientation]"
       :path="`/cards/${card.id}`"
-      @click="test"
+      @click="handleCardClick"
       :style="{ cursor: 'pointer' }"
     />
   </n-flex>

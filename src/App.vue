@@ -1,8 +1,10 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from "vue"
+import { ref, computed, onMounted, onUnmounted, defineAsyncComponent } from "vue"
 import { useAppStore } from "@/stores/app.js"
 import TheColumns from "@/components/TheColumns.vue"
 import logo from "@/assets/kibue-logo.svg"
+const TheHistoryDrawer = defineAsyncComponent(() => import("@/components/TheHistoryDrawer.vue"))
+const TheCardDrawer = defineAsyncComponent(() => import("@/components/TheCardDrawer.vue"))
 
 const appStore = useAppStore()
 
@@ -159,10 +161,24 @@ onMounted(async () => {
 onUnmounted(() => {
   window.removeEventListener("resize", handleResize)
 })
+
+function showHistoryDrawer() {
+  appStore.showHistoryDrawer = true
+
+  // Delay focus until NaiveUI initializes focus trap
+  setTimeout(() => {
+    const firstFocusable = document.querySelector(
+      ".n-drawer [tabindex], .n-drawer button, .n-drawer a, .n-drawer input",
+    )
+    firstFocusable?.focus()
+  }, 0)
+}
 </script>
 
 <template>
   <div ref="container" class="canvas-container">
+    <TheHistoryDrawer />
+    <TheCardDrawer />
     <!-- Fixed elements -->
     <a href="https://kibue.ch" target="_blank" rel="noopener noreferrer">
       <img
@@ -183,8 +199,10 @@ onUnmounted(() => {
         top: appStore.isMobile ? '15px' : '25.5px',
         right: appStore.isMobile ? '12px' : '31px',
       }"
-      >Unsere Geschichte</span
+      @click="showHistoryDrawer"
     >
+      Unsere Geschichte
+    </span>
 
     <!-- Panable canvas -->
     <div
