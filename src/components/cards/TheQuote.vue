@@ -1,5 +1,5 @@
 <script setup>
-import { NCard } from "naive-ui"
+import { NCard, NFlex } from "naive-ui"
 const props = defineProps(["card", "width", "aspectRatio", "path"])
 import { useAppStore } from "@/stores/app.js"
 

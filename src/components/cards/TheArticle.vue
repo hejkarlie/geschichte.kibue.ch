@@ -25,7 +25,7 @@ const appStore = useAppStore()
       </div>
       <div
         :style="{
-          fontSize: appStore.isMobile ? '13px' : '16px',
+          fontSize: appStore.isMobile ? '16px' : '20px',
           fontWeight: 600,
           marginTop: 'auto' /* pushes this div to the bottom */,
         }"
