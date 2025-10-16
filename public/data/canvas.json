@@ -8,10 +8,10 @@
           "id": "001",
           "type": "milestone",
           "orientation": "portrait",
-          "width": "medium",
+          "width": "full",
           "color": "#4D8D83",
           "content": {
-            "year": "2001",
+            "year": "YYYY",
             "title": "Unknown"
           }
         },
@@ -22,7 +22,7 @@
           "width": "medium",
           "color": "#F79633",
           "content": {
-            "image": "{file}",
+            "image": "thumbnail.jpg",
             "subtitle": "Unknown..."
           }
         }
@@ -38,7 +38,7 @@
           "orientation": "portrait",
           "width": "full",
           "content": {
-            "image": "{file}"
+            "image": "thumbnail.jpg"
           }
         },
         {
@@ -48,7 +48,7 @@
           "width": "medium",
           "color": "#F4B2CE",
           "content": {
-            "image": "{file}",
+            "image": "thumbnail.jpg",
             "subtitle": "Mein Tag mit Beat Jans im Rathaus"
           }
         },
@@ -86,7 +86,7 @@
           "orientation": "portrait",
           "width": "medium",
           "content": {
-            "image": "{file}"
+            "image": "thumbnail.jpg"
           }
         },
         {
@@ -106,7 +106,7 @@
           "orientation": "landscape",
           "width": "medium",
           "content": {
-            "image": "{file}"
+            "image": "thumbnail.jpg"
           }
         }
       ]
@@ -121,7 +121,7 @@
           "orientation": "portrait",
           "width": "full",
           "content": {
-            "image": "{file}"
+            "image": "thumbnail.jpg"
           }
         },
         {
@@ -130,7 +130,7 @@
           "orientation": "landscape",
           "width": "full",
           "content": {
-            "image": "{file}"
+            "image": "thumbnail.png"
           }
         },
         {
@@ -139,7 +139,7 @@
           "orientation": "portrait",
           "width": "medium",
           "content": {
-            "image": "{file}"
+            "image": "thumbnail.jpg"
           }
         },
         {
@@ -149,8 +149,8 @@
           "width": "medium",
           "color": "#E5C600",
           "content": {
-            "title": " «Wir hören den Kindern zu wenig zu»",
-            "image": "{file}",
+            "title": "«Wir hören den Kindern zu wenig zu»",
+            "image": "thumbnail.jpg",
             "subtitle": "Porträt Jo Vergeat"
           }
         }
@@ -166,7 +166,7 @@
           "orientation": "landscape",
           "width": "full",
           "content": {
-            "image": "{file}"
+            "image": "thumbnail.jpg"
           }
         },
         {
@@ -186,7 +186,7 @@
           "orientation": "portrait",
           "width": "full",
           "content": {
-            "image": "{file}"
+            "image": "thumbnail.jpg"
           }
         }
       ]

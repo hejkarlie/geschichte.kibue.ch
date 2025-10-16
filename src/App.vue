@@ -23,7 +23,7 @@ const offset = ref({ x: 0, y: 0 })
 // Boundaries
 let boundaries = { minX: 0, maxX: 0, minY: 0, maxY: 0 }
 
-const MAX_EXTRA = { x: 0.3, y: 0.4 }
+const MAX_EXTRA = { x: 0.3, y: 0.5 }
 const MAX_EXTRA_MOBILE = { x: 4, y: 0.5 }
 
 const maxExtraX = computed(() => {
@@ -165,9 +165,26 @@ onUnmounted(() => {
   <div ref="container" class="canvas-container">
     <!-- Fixed elements -->
     <a href="https://kibue.ch" target="_blank" rel="noopener noreferrer">
-      <img :src="logo" alt="Das Logo des Kinderbüros" class="logo" />
+      <img
+        :src="logo"
+        alt="Das Logo des Kinderbüros"
+        class="logo"
+        :style="{
+          width: appStore.isMobile ? '77px' : '103px',
+          top: appStore.isMobile ? '5px' : '9px',
+          left: appStore.isMobile ? '5px' : '9px',
+        }"
+      />
     </a>
-    <span class="title">Unsere Geschichte</span>
+    <span
+      class="title"
+      :style="{
+        fontSize: appStore.isMobile ? '21px' : '28px',
+        top: appStore.isMobile ? '15px' : '25.5px',
+        right: appStore.isMobile ? '12px' : '31px',
+      }"
+      >Unsere Geschichte</span
+    >
 
     <!-- Panable canvas -->
     <div
@@ -196,17 +213,12 @@ onUnmounted(() => {
 <style scoped>
 .logo {
   position: absolute;
-  top: 9px;
-  left: 9px;
-  z-index: 99;
-  width: 103px;
+  z-index: 100;
 }
 .title {
   position: absolute;
-  top: 25.5px;
-  right: 31px;
-  font-size: 28px;
-  z-index: 99;
+  z-index: 200;
+  cursor: pointer;
 }
 .canvas-container {
   width: 100vw;
@@ -222,12 +234,5 @@ onUnmounted(() => {
 }
 .canvas-container:active {
   cursor: grabbing;
-}
-.canvas {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
 }
 </style>

@@ -11,7 +11,7 @@ const props = defineProps(["card", "width", "aspectRatio", "path"])
         :style="{ aspectRatio: props.aspectRatio[0] / props.aspectRatio[1] }"
       >
         <img
-          :src="`${props.path}/thumbnail.jpg`"
+          :src="`${props.path}/${props.card.content.image}`"
           alt="Ein Bild, das einen Meilenstein in der Geschichte des Kinderbüros repräsentiert."
           draggable="false"
         />

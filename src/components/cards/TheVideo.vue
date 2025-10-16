@@ -4,7 +4,30 @@ const props = defineProps(["card", "width", "aspectRatio", "path"])
 </script>
 
 <template>
-  <n-card :style="{ backgroundColor: props.card.color }">
-    {{ props.card }}
+  <n-card :style="{ width: props.width }">
+    <template #cover>
+      <div
+        class="image-container"
+        :style="{ aspectRatio: props.aspectRatio[0] / props.aspectRatio[1] }"
+      >
+        <img
+          :src="`${props.path}/${props.card.content.image}`"
+          alt="Ein Bild, das ein Video zur Geschichte des Kinderbüros repräsentiert."
+          draggable="false"
+        />
+      </div>
+    </template>
   </n-card>
 </template>
+
+<style scoped>
+.image-container {
+  width: 100%;
+  overflow: hidden;
+}
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
