@@ -1,6 +1,11 @@
 <script setup>
+import { computed } from "vue"
 import { NCard } from "naive-ui"
 const props = defineProps(["card", "width", "aspectRatio", "path"])
+
+const imageUrl = computed(() => {
+  return `${import.meta.env.BASE_URL}${props.path}/${props.card.content.image}`
+})
 </script>
 
 <template>
@@ -11,7 +16,7 @@ const props = defineProps(["card", "width", "aspectRatio", "path"])
         :style="{ aspectRatio: props.aspectRatio[0] / props.aspectRatio[1] }"
       >
         <img
-          :src="`${props.path}/${props.card.content.image}`"
+          :src="imageUrl"
           alt="Ein Bild, das einen Meilenstein in der Geschichte des Kinderbüros repräsentiert."
           draggable="false"
         />

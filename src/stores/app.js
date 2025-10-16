@@ -13,7 +13,7 @@ export const useAppStore = defineStore("app", () => {
   async function fetchCanvasData() {
     const timestamp = Date.now()
     try {
-      const response = await fetch(`/data/canvas.json?v=${timestamp}`)
+      const response = await fetch(`${import.meta.env.BASE_URL}data/canvas.json?v=${timestamp}`)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }

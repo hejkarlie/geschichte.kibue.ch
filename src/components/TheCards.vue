@@ -35,7 +35,7 @@ function handleCardClick() {
       :card="card"
       :width="cardWidth[card.type][card.orientation][card.width]"
       :aspect-ratio="aspectRatio[card.type][card.orientation]"
-      :path="`/cards/${card.id}`"
+      :path="`cards/${card.id}`"
       @click="handleCardClick"
       :style="{ cursor: 'pointer' }"
     />

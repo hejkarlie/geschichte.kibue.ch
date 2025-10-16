@@ -1,9 +1,14 @@
 <script setup>
+import { computed } from "vue"
 import { NCard, NFlex } from "naive-ui"
 const props = defineProps(["card", "width", "aspectRatio", "path"])
 import { useAppStore } from "@/stores/app.js"
 
 const appStore = useAppStore()
+
+const imageUrl = computed(() => {
+  return `${import.meta.env.BASE_URL}${props.path}/${props.card.content.image}`
+})
 </script>
 
 <template>
@@ -18,7 +23,7 @@ const appStore = useAppStore()
     <n-flex vertical :style="{ height: '100%' }">
       <div class="image-container">
         <img
-          :src="`${props.path}/${props.card.content.image}`"
+          :src="imageUrl"
           alt="Ein Bild, das einen Artikel zur Geschichte des Kinderbüros begleitet."
           draggable="false"
         />
