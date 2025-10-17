@@ -1,0 +1,1 @@
+import{u as t,d as r,o as a,t as n,b as o}from"./index-CXp74ol_.js";const _={__name:"TheInterview",setup(s){const e=t();return(p,c)=>(a(),r("div",null,n(o(e).drawerContent),1))}};export{_ as default};
