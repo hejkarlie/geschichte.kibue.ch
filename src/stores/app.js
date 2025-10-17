@@ -3,8 +3,12 @@ import { defineStore } from "pinia"
 
 export const useAppStore = defineStore("app", () => {
   // Screen size
+  const TABLET_THRESHOLD_UPPER = 1025
   const MOBILE_THRESHOLD = 768
   const windowWidth = ref(window.innerWidth)
+  const isTablet = computed(
+    () => windowWidth.value >= MOBILE_THRESHOLD && windowWidth.value < TABLET_THRESHOLD_UPPER,
+  )
   const isMobile = computed(() => windowWidth.value < MOBILE_THRESHOLD)
 
   // Canvas data (columns and cards)
@@ -39,6 +43,7 @@ export const useAppStore = defineStore("app", () => {
     fetchCanvasData,
     canvas,
     windowWidth,
+    isTablet,
     isMobile,
     movedEnough,
     showHistoryDrawer,

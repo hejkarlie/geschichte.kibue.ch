@@ -12,7 +12,7 @@ const container = ref(null)
 const canvas = ref(null)
 
 const MOVE_THRESHOLD = 5
-const MOVE_THRESHOLD_MOBILE = 10
+const MOVE_THRESHOLD_TOUCH = 10
 
 let isPanning = false
 
@@ -25,14 +25,23 @@ const offset = ref({ x: 0, y: 0 })
 // Boundaries
 let boundaries = { minX: 0, maxX: 0, minY: 0, maxY: 0 }
 
-const MAX_EXTRA = { x: 0.3, y: 0.5 }
+const MAX_EXTRA = { x: 0.3, y: 0.65 }
+const MAX_EXRA_TABLET = { x: 1.5, y: 0.2 }
 const MAX_EXTRA_MOBILE = { x: 4, y: 0.5 }
 
 const maxExtraX = computed(() => {
-  return appStore.isMobile ? MAX_EXTRA_MOBILE.x : MAX_EXTRA.x
+  return appStore.isMobile
+    ? MAX_EXTRA_MOBILE.x
+    : appStore.isTablet
+      ? MAX_EXRA_TABLET.x
+      : MAX_EXTRA.x
 })
 const maxExtraY = computed(() => {
-  return appStore.isMobile ? MAX_EXTRA_MOBILE.y : MAX_EXTRA.y
+  return appStore.isMobile
+    ? MAX_EXTRA_MOBILE.y
+    : appStore.isTablet
+      ? MAX_EXRA_TABLET.y
+      : MAX_EXTRA.y
 })
 
 const panableWidth = computed(() => {
@@ -46,7 +55,7 @@ const panableHeight = computed(() => {
 })
 
 const moveThreshold = computed(() => {
-  return appStore.isMobile ? MOVE_THRESHOLD : MOVE_THRESHOLD_MOBILE
+  return appStore.isMobile ? MOVE_THRESHOLD : MOVE_THRESHOLD_TOUCH
 })
 
 function updateBoundaries() {
@@ -74,6 +83,14 @@ function updateBoundaries() {
     minY: centerOffset.y - canvasH * maxExtraY.value,
     maxY: centerOffset.y + canvasH * maxExtraY.value,
   }
+
+  // Shift everything down by header height ---
+  const headerShift = appStore.isMobile ? 100 : 130
+  offset.value = {
+    x: offset.value.x,
+    y: headerShift,
+  }
+  initialOffset = { ...offset.value }
 }
 
 function startPan(event) {
@@ -113,6 +130,8 @@ function pan(event) {
     x: Math.min(Math.max(initialOffset.x + dx, boundaries.minX), boundaries.maxX),
     y: Math.min(Math.max(initialOffset.y + dy, boundaries.minY), boundaries.maxY),
   }
+
+  console.log(offset.value.y)
 }
 
 function endPan(event) {
@@ -164,14 +183,6 @@ onUnmounted(() => {
 
 function showHistoryDrawer() {
   appStore.showHistoryDrawer = true
-
-  // Delay focus until NaiveUI initializes focus trap
-  setTimeout(() => {
-    const firstFocusable = document.querySelector(
-      ".n-drawer [tabindex], .n-drawer button, .n-drawer a, .n-drawer input",
-    )
-    firstFocusable?.focus()
-  }, 0)
 }
 </script>
 
@@ -207,7 +218,6 @@ function showHistoryDrawer() {
     <!-- Panable canvas -->
     <div
       ref="canvas"
-      class="canvas"
       :style="{
         width: panableWidth + 'px',
         height: panableHeight + 'px',
