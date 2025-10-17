@@ -58,7 +58,17 @@ const moveThreshold = computed(() => {
   return appStore.isMobile ? MOVE_THRESHOLD : MOVE_THRESHOLD_TOUCH
 })
 
-function updateBoundaries() {
+function forceYOffset() {
+  // Shift everything down by "header" height
+  const headerShift = appStore.isMobile ? 100 : 130
+  offset.value = {
+    x: offset.value.x,
+    y: headerShift,
+  }
+  initialOffset = { ...offset.value }
+}
+
+async function updateBoundaries() {
   if (!container.value || !canvas.value) return
 
   const cW = container.value.clientWidth
@@ -83,14 +93,11 @@ function updateBoundaries() {
     minY: centerOffset.y - canvasH * maxExtraY.value,
     maxY: centerOffset.y + canvasH * maxExtraY.value,
   }
+}
 
-  // Shift everything down by header height ---
-  const headerShift = appStore.isMobile ? 100 : 130
-  offset.value = {
-    x: offset.value.x,
-    y: headerShift,
-  }
-  initialOffset = { ...offset.value }
+async function setCanvas() {
+  await updateBoundaries()
+  forceYOffset()
 }
 
 function startPan(event) {
@@ -130,8 +137,6 @@ function pan(event) {
     x: Math.min(Math.max(initialOffset.x + dx, boundaries.minX), boundaries.maxX),
     y: Math.min(Math.max(initialOffset.y + dy, boundaries.minY), boundaries.maxY),
   }
-
-  console.log(offset.value.y)
 }
 
 function endPan(event) {
@@ -166,14 +171,14 @@ function handleResize() {
   clearTimeout(resizeTimeout)
   resizeTimeout = setTimeout(() => {
     // Re-center the cards if windows is resized
-    updateBoundaries()
+    setCanvas()
   }, 500)
 }
 
 // Licecycle
 onMounted(async () => {
   await appStore.fetchCanvasData() // Fetch cancas data
-  updateBoundaries() // Set cancas dimensions
+  setCanvas() // Set cancas dimensions
   window.addEventListener("resize", handleResize)
 })
 
@@ -247,6 +252,7 @@ function showHistoryDrawer() {
   position: absolute;
   z-index: 200;
   cursor: pointer;
+  font-weight: 500;
 }
 .canvas-container {
   width: 100vw;
