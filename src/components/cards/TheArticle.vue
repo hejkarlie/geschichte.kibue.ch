@@ -32,7 +32,7 @@ const imageUrl = computed(() => {
         :style="{
           fontSize: appStore.isMobile ? '16px' : '20px',
           fontWeight: 600,
-          marginTop: 'auto' /* pushes this div to the bottom */,
+          marginTop: 'auto' /* Pushes this div to the bottom */,
         }"
       >
         {{ props.card.content.subtitle }}

@@ -13,7 +13,8 @@
           "content": {
             "year": "YYYY",
             "title": "Unknown"
-          }
+          },
+          "drawerType": "article"
         },
         {
           "id": "002",
@@ -24,7 +25,8 @@
           "content": {
             "image": "thumbnail.jpg",
             "subtitle": "Unknown..."
-          }
+          },
+          "drawerType": "article"
         }
       ]
     },
@@ -39,7 +41,8 @@
           "width": "full",
           "content": {
             "image": "thumbnail.jpg"
-          }
+          },
+          "drawerType": "gallery"
         },
         {
           "id": "004",
@@ -50,7 +53,8 @@
           "content": {
             "image": "thumbnail.jpg",
             "subtitle": "Mein Tag mit Beat Jans im Rathaus"
-          }
+          },
+          "drawerType": "article"
         },
         {
           "id": "005",
@@ -61,7 +65,8 @@
           "content": {
             "quote": "«Hier steht ein Zitat: lorem ipsum dolor sit amet est dolor.»",
             "subtitle": "Christoph Eymann, ehem. Regierungsrat"
-          }
+          },
+          "drawerType": "article"
         }
       ]
     },
@@ -78,7 +83,8 @@
           "content": {
             "year": "2000",
             "title": "Es geht los"
-          }
+          },
+          "drawerType": "article"
         },
         {
           "id": "007",
@@ -87,7 +93,8 @@
           "width": "medium",
           "content": {
             "image": "thumbnail.jpg"
-          }
+          },
+          "drawerType": "gallery"
         },
         {
           "id": "008",
@@ -98,7 +105,8 @@
           "content": {
             "year": "2007",
             "title": "Erste KinderMitWirkung"
-          }
+          },
+          "drawerType": "article"
         },
         {
           "id": "009",
@@ -107,7 +115,8 @@
           "width": "medium",
           "content": {
             "image": "thumbnail.jpg"
-          }
+          },
+          "drawerType": "gallery"
         }
       ]
     },
@@ -122,7 +131,8 @@
           "width": "full",
           "content": {
             "image": "thumbnail.jpg"
-          }
+          },
+          "drawerType": "gallery"
         },
         {
           "id": "011",
@@ -131,7 +141,8 @@
           "width": "full",
           "content": {
             "image": "thumbnail.png"
-          }
+          },
+          "drawerType": "video"
         },
         {
           "id": "012",
@@ -140,7 +151,8 @@
           "width": "medium",
           "content": {
             "image": "thumbnail.jpg"
-          }
+          },
+          "drawerType": "gallery"
         },
         {
           "id": "013",
@@ -152,7 +164,8 @@
             "title": "«Wir hören den Kindern zu wenig zu»",
             "image": "thumbnail.jpg",
             "subtitle": "Porträt Jo Vergeat"
-          }
+          },
+          "drawerType": "interview"
         }
       ]
     },
@@ -167,7 +180,8 @@
           "width": "full",
           "content": {
             "image": "thumbnail.jpg"
-          }
+          },
+          "drawerType": "gallery"
         },
         {
           "id": "015",
@@ -178,7 +192,8 @@
           "content": {
             "year": "2018",
             "title": "Stiftungsgründung"
-          }
+          },
+          "drawerType": "article"
         },
         {
           "id": "016",
@@ -187,7 +202,8 @@
           "width": "full",
           "content": {
             "image": "thumbnail.jpg"
-          }
+          },
+          "drawerType": "gallery"
         }
       ]
     }

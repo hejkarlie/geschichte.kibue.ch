@@ -39,8 +39,30 @@ export const useAppStore = defineStore("app", () => {
   // Card drawer
   const showCardDrawer = ref(false)
 
+  // Selected card
+  const selectedCard = ref(null)
+  const drawerContent = ref(null)
+
+  async function fetchDrawerContent(cardId) {
+    const timestamp = Date.now()
+    try {
+      const response = await fetch(
+        `${import.meta.env.BASE_URL}cards/${cardId}/drawer.json?v=${timestamp}`,
+      )
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const data = await response.json()
+      drawerContent.value = data
+    } catch (error) {
+      console.error("Failed to load drawer data:", error)
+      drawerContent.value = null
+    }
+  }
+
   return {
     fetchCanvasData,
+    fetchDrawerContent,
     canvas,
     windowWidth,
     isTablet,
@@ -48,5 +70,7 @@ export const useAppStore = defineStore("app", () => {
     movedEnough,
     showHistoryDrawer,
     showCardDrawer,
+    selectedCard,
+    drawerContent,
   }
 })

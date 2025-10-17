@@ -17,8 +17,10 @@ const cardComponents = {
 
 const props = defineProps(["cards"])
 
-function handleCardClick() {
+async function handleCardClick(card) {
   if (!appStore.movedEnough) {
+    appStore.selectedCard = card
+    await appStore.fetchDrawerContent(card.id)
     appStore.showCardDrawer = true
   }
   // Reset movedEnough for next interaction
@@ -36,7 +38,7 @@ function handleCardClick() {
       :width="cardWidth[card.type][card.orientation][card.width]"
       :aspect-ratio="aspectRatio[card.type][card.orientation]"
       :path="`cards/${card.id}`"
-      @click="handleCardClick"
+      @click="handleCardClick(card)"
       :style="{ cursor: 'pointer' }"
     />
   </n-flex>
